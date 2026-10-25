@@ -1,0 +1,25 @@
+[gd_scene format=3 uid="uid://irv52igireqs"]
+
+[ext_resource type="PackedScene" uid="uid://dnytm8gnyrtee" path="res://Scenes/FoldableContainer/FoldableContainer2.tscn" id="1_ipnto"]
+[ext_resource type="Script" uid="uid://d3c62ighsv3cg" path="res://Scenes/Sections/card_module_section.gd" id="2_unefd"]
+[ext_resource type="PackedScene" uid="uid://c4e6wudbswyv5" path="res://Scenes/ModuleDescriptor/CardModuleFoldableDescriptor.tscn" id="3_4tr1d"]
+[ext_resource type="PackedScene" uid="uid://c80g42efitwbf" path="res://Scenes/ModuleDescriptor/CardPassiveModuleFoldableDescriptor.tscn" id="4_1mmtn"]
+[ext_resource type="PackedScene" uid="uid://cton060uqs6el" path="res://Scenes/Properties/CardModule_Boolean_Property.tscn" id="5_8p374"]
+[ext_resource type="PackedScene" uid="uid://csmy1kwmds8pf" path="res://Scenes/Properties/CardModule_Int_Property.tscn" id="6_8tud8"]
+[ext_resource type="PackedScene" uid="uid://onpsyg2ilvtb" path="res://Scenes/Properties/CardModule_Enum_Property.tscn" id="7_e4x5t"]
+[ext_resource type="PackedScene" uid="uid://deq3ume1168c" path="res://Scenes/Properties/CardModule_Float_Property.tscn" id="8_qw6fc"]
+[ext_resource type="PackedScene" uid="uid://4ixttwcew8em" path="res://Scenes/Properties/CardModule_String_Property.tscn" id="9_1mmtn"]
+[ext_resource type="PackedScene" uid="uid://c7smgltu25ih4" path="res://Scenes/Properties/CardModule_StringFile_Property.tscn" id="10_8p374"]
+[ext_resource type="PackedScene" uid="uid://0sv7tkid28y1" path="res://Scenes/Properties/CardModule_Array_Property.tscn" id="11_8tud8"]
+
+[node name="FoldableContainer" unique_id=811239154 instance=ExtResource("1_ipnto")]
+script = ExtResource("2_unefd")
+moduleDescriptorScene = ExtResource("3_4tr1d")
+passiveModuleDescriptorScene = ExtResource("4_1mmtn")
+boolScene = ExtResource("5_8p374")
+intScene = ExtResource("6_8tud8")
+enumScene = ExtResource("7_e4x5t")
+floatScene = ExtResource("8_qw6fc")
+stringScene = ExtResource("9_1mmtn")
+stringFileScene = ExtResource("10_8p374")
+arrayScene = ExtResource("11_8tud8")

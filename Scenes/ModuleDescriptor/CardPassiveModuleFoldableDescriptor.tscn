@@ -1,0 +1,40 @@
+[gd_scene format=3 uid="uid://c80g42efitwbf"]
+
+[ext_resource type="PackedScene" uid="uid://c4e6wudbswyv5" path="res://Scenes/ModuleDescriptor/CardModuleFoldableDescriptor.tscn" id="1_wuriq"]
+[ext_resource type="Script" uid="uid://bfb6vr5hn3vf8" path="res://Scenes/ModuleDescriptor/CardPassiveModuleDescriptor.gd" id="2_l4ymx"]
+
+[node name="FoldableContainer" unique_id=811239154 node_paths=PackedStringArray("receiverOption", "targetOption", "ModuleName") instance=ExtResource("1_wuriq")]
+script = ExtResource("2_l4ymx")
+receiverOption = NodePath("VBoxContainer/HBoxContainer2/Instigator")
+targetOption = NodePath("VBoxContainer/HBoxContainer2/Target")
+ModuleName = NodePath("VBoxContainer/Label")
+
+[node name="HBoxContainer2" type="HBoxContainer" parent="VBoxContainer" parent_id_path=PackedInt32Array(1033798968) index="1" unique_id=647105896]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="VBoxContainer/HBoxContainer2" index="0" unique_id=766217935]
+layout_mode = 2
+text = "Intstigator :"
+
+[node name="Instigator" type="OptionButton" parent="VBoxContainer/HBoxContainer2" index="1" unique_id=1268394457]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Label2" type="Label" parent="VBoxContainer/HBoxContainer2" index="2" unique_id=1204430024]
+layout_mode = 2
+text = "Target"
+
+[node name="Target" type="OptionButton" parent="VBoxContainer/HBoxContainer2" index="3" unique_id=2028591187]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Label" type="Label" parent="VBoxContainer" parent_id_path=PackedInt32Array(1033798968) index="2" unique_id=2097055711]
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_font_sizes/font_size = 22
+text = "No Module"
+
+[node name="VBoxContainer" type="VBoxContainer" parent="VBoxContainer" parent_id_path=PackedInt32Array(1033798968) index="3" unique_id=1672419260]
+visible = false
+layout_mode = 2
+size_flags_vertical = 3

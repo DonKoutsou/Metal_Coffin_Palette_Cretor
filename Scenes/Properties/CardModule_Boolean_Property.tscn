@@ -1,0 +1,14 @@
+[gd_scene format=3 uid="uid://cton060uqs6el"]
+
+[ext_resource type="PackedScene" uid="uid://cg2ofk6jjjdtp" path="res://Scenes/Properties/CardModuleProperty.tscn" id="1_051tl"]
+[ext_resource type="Script" uid="uid://bg6hosmq3pa1" path="res://Scenes/Properties/card_module_boolean_property.gd" id="2_quv38"]
+
+[node name="PanelContainer" unique_id=2071651446 node_paths=PackedStringArray("box") instance=ExtResource("1_051tl")]
+script = ExtResource("2_quv38")
+box = NodePath("VBoxContainer/CheckBox")
+
+[node name="CheckBox" type="CheckBox" parent="VBoxContainer" parent_id_path=PackedInt32Array(1776421015) index="1" unique_id=1398149724]
+layout_mode = 2
+size_flags_horizontal = 8
+
+[connection signal="toggled" from="VBoxContainer/CheckBox" to="." method="_on_check_box_toggled"]

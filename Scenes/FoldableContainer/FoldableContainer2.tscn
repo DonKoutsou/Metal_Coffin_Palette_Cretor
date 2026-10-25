@@ -1,0 +1,46 @@
+[gd_scene format=3 uid="uid://dnytm8gnyrtee"]
+
+[ext_resource type="Script" uid="uid://xbdq13o3mi54" path="res://Scenes/FoldableContainer/foldable_container.gd" id="2_f8spb"]
+[ext_resource type="Texture2D" uid="uid://7l7iadppuuo3" path="res://Scenes/FoldableContainer/Arrow.png" id="3_gr7mp"]
+[ext_resource type="Texture2D" uid="uid://sdmeemku7vj3" path="res://Scenes/FoldableContainer/Plus.png" id="4_c1txm"]
+
+[node name="FoldableContainer" type="PanelContainer" unique_id=811239154 node_paths=PackedStringArray("container")]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("2_f8spb")
+container = NodePath("VBoxContainer/MarginContainer/VBoxContainer")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="." unique_id=1033798968]
+layout_mode = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer" unique_id=944317946]
+custom_maximum_size = Vector2(-1, 22)
+layout_mode = 2
+
+[node name="Expand" type="Button" parent="VBoxContainer/HBoxContainer" unique_id=2076961913]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Menu Name"
+icon = ExtResource("3_gr7mp")
+alignment = 0
+expand_icon = true
+
+[node name="Add" type="Button" parent="VBoxContainer/HBoxContainer" unique_id=1507943729]
+layout_mode = 2
+icon = ExtResource("4_c1txm")
+
+[node name="MarginContainer" type="MarginContainer" parent="VBoxContainer" unique_id=1147274790]
+visible = false
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_constants/margin_left = 20
+
+[node name="VBoxContainer" type="VBoxContainer" parent="VBoxContainer/MarginContainer" unique_id=1672419260]
+layout_mode = 2
+size_flags_vertical = 3
+
+[connection signal="pressed" from="VBoxContainer/HBoxContainer/Expand" to="." method="_on_expand_pressed"]
+[connection signal="pressed" from="VBoxContainer/HBoxContainer/Add" to="." method="_on_add_pressed"]

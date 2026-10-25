@@ -1,0 +1,17 @@
+[gd_scene format=3 uid="uid://c7smgltu25ih4"]
+
+[ext_resource type="PackedScene" uid="uid://cg2ofk6jjjdtp" path="res://Scenes/Properties/CardModuleProperty.tscn" id="1_iycya"]
+[ext_resource type="PackedScene" uid="uid://sf4cxl8op2tv" path="res://MetalEngineBase/Utils/ResourcePicker.tscn" id="2_fc8ny"]
+[ext_resource type="Script" uid="uid://co56isqd0k55j" path="res://Scenes/Properties/card_module_string_file_property.gd" id="2_ikhf0"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_fc8ny"]
+
+[node name="PanelContainer" unique_id=2071651446 node_paths=PackedStringArray("picker") instance=ExtResource("1_iycya")]
+script = ExtResource("2_ikhf0")
+picker = NodePath("VBoxContainer/ResourcePicker")
+
+[node name="ResourcePicker" parent="VBoxContainer" parent_id_path=PackedInt32Array(1560259221) index="1" unique_id=316868228 instance=ExtResource("2_fc8ny")]
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxEmpty_fc8ny")
+
+[connection signal="Changed" from="VBoxContainer/ResourcePicker" to="." method="_on_resource_picker_changed"]

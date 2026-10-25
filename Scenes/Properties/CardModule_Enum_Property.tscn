@@ -1,0 +1,13 @@
+[gd_scene format=3 uid="uid://onpsyg2ilvtb"]
+
+[ext_resource type="PackedScene" uid="uid://cg2ofk6jjjdtp" path="res://Scenes/Properties/CardModuleProperty.tscn" id="1_ueg4x"]
+[ext_resource type="Script" uid="uid://cunkfp2gyfh8q" path="res://Scenes/Properties/card_module_enum_property.gd" id="2_ueg4x"]
+
+[node name="PanelContainer" unique_id=2071651446 node_paths=PackedStringArray("option") instance=ExtResource("1_ueg4x")]
+script = ExtResource("2_ueg4x")
+option = NodePath("VBoxContainer/OptionButton")
+
+[node name="OptionButton" type="OptionButton" parent="VBoxContainer" parent_id_path=PackedInt32Array(1776421015) index="1" unique_id=1194052238]
+layout_mode = 2
+
+[connection signal="item_selected" from="VBoxContainer/OptionButton" to="." method="_on_option_button_item_selected"]

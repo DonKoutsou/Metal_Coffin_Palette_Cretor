@@ -1,0 +1,67 @@
+[gd_scene format=3 uid="uid://r705uaao8chq"]
+
+[ext_resource type="Script" uid="uid://ck2v07shcn8ho" path="res://Main.gd" id="1_glv2v"]
+[ext_resource type="PackedScene" uid="uid://sf4cxl8op2tv" path="res://MetalEngineBase/Utils/ResourcePicker.tscn" id="2_uu6xs"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_uu6xs"]
+bg_color = Color(0, 0, 0.501961, 1)
+
+[node name="Control" type="Control" unique_id=794670684 node_paths=PackedStringArray("projectPicker", "basePackPicker")]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_glv2v")
+cardBuilderScene = "uid://dh3bwvtubkl7h"
+projectPicker = NodePath("PanelContainer/MarginContainer/VBoxContainer/ProjectPicker")
+basePackPicker = NodePath("PanelContainer/MarginContainer/VBoxContainer/BasePackPicker")
+
+[node name="PanelContainer" type="PanelContainer" parent="." unique_id=1486043544]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_uu6xs")
+
+[node name="MarginContainer" type="MarginContainer" parent="PanelContainer" unique_id=1734819859]
+layout_mode = 2
+theme_override_constants/margin_left = 150
+theme_override_constants/margin_top = 150
+theme_override_constants/margin_right = 150
+theme_override_constants/margin_bottom = 150
+
+[node name="VBoxContainer" type="VBoxContainer" parent="PanelContainer/MarginContainer" unique_id=1789674301]
+layout_mode = 2
+alignment = 1
+
+[node name="Label" type="Label" parent="PanelContainer/MarginContainer/VBoxContainer" unique_id=566936015]
+layout_mode = 2
+text = "Project Path"
+
+[node name="ProjectPicker" parent="PanelContainer/MarginContainer/VBoxContainer" unique_id=316868228 instance=ExtResource("2_uu6xs")]
+layout_mode = 2
+size_flags_vertical = 1
+resource_Type = 2
+allowExternalLinks = true
+
+[node name="Label2" type="Label" parent="PanelContainer/MarginContainer/VBoxContainer" unique_id=229834958]
+layout_mode = 2
+text = "Base Pack"
+
+[node name="BasePackPicker" parent="PanelContainer/MarginContainer/VBoxContainer" unique_id=1898830005 instance=ExtResource("2_uu6xs")]
+layout_mode = 2
+size_flags_vertical = 1
+resource_Tyoes = PackedStringArray("*.pck")
+allowExternalLinks = true
+
+[node name="Launch" type="Button" parent="PanelContainer/MarginContainer/VBoxContainer" unique_id=663642845]
+layout_mode = 2
+text = "Ready"
+
+[connection signal="Changed" from="PanelContainer/MarginContainer/VBoxContainer/ProjectPicker" to="." method="_on_project_picker_changed"]
+[connection signal="Changed" from="PanelContainer/MarginContainer/VBoxContainer/BasePackPicker" to="." method="_on_base_pack_picker_changed"]
+[connection signal="pressed" from="PanelContainer/MarginContainer/VBoxContainer/Launch" to="." method="_on_launch_pressed"]

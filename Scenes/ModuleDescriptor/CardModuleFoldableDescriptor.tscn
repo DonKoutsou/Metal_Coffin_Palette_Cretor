@@ -1,0 +1,8 @@
+[gd_scene format=3 uid="uid://c4e6wudbswyv5"]
+
+[ext_resource type="PackedScene" uid="uid://bemimbr7tp5g" path="res://Scenes/FoldableContainer/FoldableContainer.tscn" id="1_fe3qk"]
+[ext_resource type="Script" uid="uid://dtt2qns7nvdiy" path="res://Scenes/ModuleDescriptor/card_module_descriptor.gd" id="2_wiy85"]
+
+[node name="FoldableContainer" unique_id=811239154 node_paths=PackedStringArray("modulePropertiesParent") instance=ExtResource("1_fe3qk")]
+script = ExtResource("2_wiy85")
+modulePropertiesParent = NodePath("VBoxContainer/MarginContainer/VBoxContainer")

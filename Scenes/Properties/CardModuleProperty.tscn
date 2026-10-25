@@ -1,0 +1,34 @@
+[gd_scene format=3 uid="uid://cg2ofk6jjjdtp"]
+
+[ext_resource type="Script" uid="uid://1gaw0y26isut" path="res://Scenes/Properties/card_module_property.gd" id="1_ctj4c"]
+[ext_resource type="Texture2D" uid="uid://e5i0hxvxkapf" path="res://Scenes/FoldableContainer/X.png" id="3_hej50"]
+
+[node name="PanelContainer" type="PanelContainer" unique_id=2071651446 node_paths=PackedStringArray("nameLabel", "removeButton")]
+custom_minimum_size = Vector2(0, 30)
+custom_maximum_size = Vector2(-1, 30)
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+script = ExtResource("1_ctj4c")
+nameLabel = NodePath("VBoxContainer/Label")
+removeButton = NodePath("VBoxContainer/Remove")
+
+[node name="VBoxContainer" type="HBoxContainer" parent="." unique_id=1560259221]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="VBoxContainer" unique_id=1656817199]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_font_sizes/font_size = 16
+text = "Property Name"
+
+[node name="Remove" type="Button" parent="VBoxContainer" unique_id=977116114]
+visible = false
+layout_mode = 2
+icon = ExtResource("3_hej50")
+
+[connection signal="pressed" from="VBoxContainer/Remove" to="." method="_on_remove_pressed"]

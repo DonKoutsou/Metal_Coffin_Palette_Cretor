@@ -1,0 +1,41 @@
+[gd_scene format=3 uid="uid://dxcb4jqvwpj38"]
+
+[ext_resource type="PackedScene" uid="uid://cg2ofk6jjjdtp" path="res://Scenes/Properties/CardModuleProperty.tscn" id="1_dpcm2"]
+
+[sub_resource type="GDScript" id="GDScript_jxnhf"]
+script/source = "extends CardModuleProperty
+
+class_name CardModuleDamageInfoProperty
+
+@export var damageTypeOptions : OptionButton
+@export var calcOptions : OptionButton
+@export var selfcalcOptions : OptionButton
+
+func _ready() -> void:
+	for g in CardModule.Stat.size():
+		var key = CardModule.Stat.keys()[g]
+		damageTypeOptions.add_item(key)
+	
+	for g in DamageInfo.CalcuationMethod.size():
+		var key = DamageInfo.CalcuationMethod.keys()[g]
+		calcOptions.add_item(key)
+	
+	for g in DamageInfo.SelfCalcuationMethod.size():
+		var key = DamageInfo.SelfCalcuationMethod.keys()[g]
+		selfcalcOptions.add_item(key)
+"
+
+[node name="PanelContainer" unique_id=2071651446 node_paths=PackedStringArray("damageTypeOptions", "calcOptions", "selfcalcOptions") instance=ExtResource("1_dpcm2")]
+script = SubResource("GDScript_jxnhf")
+damageTypeOptions = NodePath("VBoxContainer/DamageType")
+calcOptions = NodePath("VBoxContainer/CalculationMode")
+selfcalcOptions = NodePath("VBoxContainer/SelfCalculationMode")
+
+[node name="DamageType" type="OptionButton" parent="VBoxContainer" parent_id_path=PackedInt32Array(1560259221) index="1" unique_id=1194052238]
+layout_mode = 2
+
+[node name="CalculationMode" type="OptionButton" parent="VBoxContainer" parent_id_path=PackedInt32Array(1560259221) index="2" unique_id=1927893504]
+layout_mode = 2
+
+[node name="SelfCalculationMode" type="OptionButton" parent="VBoxContainer" parent_id_path=PackedInt32Array(1560259221) index="3" unique_id=1128788243]
+layout_mode = 2
