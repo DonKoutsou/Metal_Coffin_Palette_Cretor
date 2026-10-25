@@ -2,54 +2,7 @@ extends RefCounted
 
 class_name CardHelper
 
-#----------------------------------------------------------------------
-static func GetModuleList(allowPassive : bool) -> Dictionary[String, GDScript]:
-	var module_list: Dictionary[String, GDScript] = {}
-	
-	var global_class_list: Array[Dictionary] = Main.globalClassList
-	
-	# class name -> class info
-	var classes: Dictionary[String, Dictionary] = {}
 
-	for info: Dictionary in global_class_list:
-		classes[info["class"]] = info
-
-	for info: Dictionary in global_class_list:
-		var clName: String = info["class"]
-
-		if _inherits_from(clName, "CardModule", classes):
-			var class_path: String = info["path"]
-			var prName = prettify_class_name(clName)
-			var sc : GDScript = ResourceLoader.load(class_path)
-			
-			if (!allowPassive):
-				if (sc.CanBeInPassive()):
-					module_list[prName] = sc
-			else:
-				module_list[prName] = sc
-				
-	return module_list
-
-#----------------------------------------------------------------------
-static func GetPassiveList() -> Dictionary[String, GDScript]:
-	var module_list: Dictionary[String, GDScript] = {}
-	var global_class_list: Array[Dictionary] = Main.globalClassList
-
-	# class name -> class info
-	var classes: Dictionary[String, Dictionary] = {}
-
-	for info: Dictionary in global_class_list:
-		classes[info["class"]] = info
-
-	for info: Dictionary in global_class_list:
-		var clName: String = info["class"]
-
-		if _inherits_from(clName, "Card_Passive", classes):
-			var class_path: String = info["path"]
-			var prName = prettify_class_name(clName)
-			module_list[prName] = ResourceLoader.load(class_path)
-
-	return module_list
 
 #----------------------------------------------------------------------
 ##Passes both files through a hash function and checks the resault

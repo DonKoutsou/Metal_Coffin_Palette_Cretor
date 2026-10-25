@@ -1,35 +1,107 @@
 extends PanelContainer
 
-class_name CardBuilder
+class_name PaletterCreator
 
 @export var Menu : PopupMenu
-@export var cardShowcasee : Card
-@export var cardDesc : CardDescriptor
+@export var ship : TextureRect
+@export var colorParent : Control
 @export var sect : PackedScene
-
-var cards : Array[CardStats]
-var currentCard : int = 0
-
+@export var colorProp : PackedScene
+@export var row : SpinBox
 var startingDir : String
-var generalSection : CardModuleSection
+
+var currentShip : int
+var currentRow : int = 1
+var data : Array[HullData]
 
 func _ready() -> void:
 	UpdateDilogues()
 
-func SetCard(c : CardStats) -> void:
-	cardShowcasee.SetCardStats(c)
-	cardShowcasee.SetRealistic()
+func SetShip(d : HullData) -> void:
+	for g in colorParent.get_children():
+		g.queue_free()
 	
-	var path : String = c.txFile
-	if (path.contains("uid")):
-		path = ResourceUID.ensure_path(c.txFile)
+	ship.texture = ResourceLoader.load(d.hullTexture)
+	
+	var palette : Texture2D
+	if (d.hull_Pallete.is_empty()):
+		palette = CreateNewPalette(d)
+	else:
+		palette = ImageTexture.create_from_image(Image.load_from_file(d.resource_path.replace("_Data.tres", "_Palette.png")))
+	
+	var shader : ShaderMaterial = ship.material
+	shader.set_shader_parameter("palette_texture", palette)
+	shader.set_shader_parameter("palette_index", currentRow)
+	
+	row.max_value = palette.get_height() - 2
+	
+	var colors = GetColorsFromPalette(palette)
+	for colorIndex in colors.size():
+		var c = colors[colorIndex]
+		var cPop : CardModuleColorProperty = colorProp.instantiate()
+		cPop.SetProperty("{0}#".format([colorIndex]), c)
+		colorParent.add_child(cPop)
+		cPop.PropertyChanged.connect(ColorChanged.bind(colorIndex))
 
+func CreateNewPalette(d : HullData) -> ImageTexture:
+	var im = ship.texture.get_image().duplicate()
+	im.clear_mipmaps()
+	var newPalleteColors = PaletteAnalyzer.create_Pallete(im)
+	var newPallete : Image = Image.create(newPalleteColors.size(), 1, false, Image.FORMAT_RGB8)
+	
+	for pixelIndex in newPalleteColors.size():
+		newPallete.set_pixel(pixelIndex, 0, newPalleteColors[pixelIndex])
+	
+	var hullLoc : String = d.resource_path.replace("res:/", Main.dirs.ModDir)
+	var fileName = hullLoc.get_basename().replace("_Data","_Palette") + ".png"
+	newPallete.save_png(fileName)
+	d.hull_Pallete = fileName
+	ResaveData(d)
+	return ImageTexture.create_from_image(newPallete)
+
+func UpdateShip() -> void:
+	
+	var palettePath = data[currentShip].resource_path.replace("_Data.tres", "_Palette.png")
+
+	var im = Image.load_from_file(palettePath)
+	var palette = ImageTexture.create_from_image(im)
+	
+	var shader : ShaderMaterial = ship.material
+	shader.set_shader_parameter("palette_texture", palette)
+	shader.set_shader_parameter("palette_index", currentRow)
+
+func ColorChanged(_propName : String, c : Color, index : int) -> void:
+	var palettePath = data[currentShip].resource_path.replace("_Data.tres", "_Palette.png")
+
+	var im = Image.load_from_file(palettePath)
+
+	im.set_pixel(index, currentRow, c)
+
+	im.save_png(palettePath)
+	ResaveData()
+	UpdateShip()
+
+func GetColorsFromPalette(palette : Texture2D, r : int = currentRow) -> Array[Color]:
+	var maxRow = palette.get_height()
+	if (r >= maxRow):
+		r = 0
+	var colors : Array[Color] = []
+	var im = palette.get_image()
+	
+	for pixel in im.get_width():
+		var pixelC = im.get_pixel(pixel, r)
+		colors.append(pixelC)
+	
+	return colors
+	
+func SetRow(r : int) -> void:
+	currentRow = r
 #--------------------------------------------------------
 ##Checks happening directory and pulls all of them out
 func UpdateDilogues() -> void:
 	Menu.clear()
-	cards.clear()
-	var DirsToExplore :Array[String] = [startingDir + "/Resources/Cards/"]
+	data.clear()
+	var DirsToExplore :Array[String] = [Main.dirs.ModDir + "/Assets/ShipTextures"]
 	for g in DirsToExplore:
 		var dir = DirAccess.open(g)
 		if dir:
@@ -42,66 +114,75 @@ func UpdateDilogues() -> void:
 				else:
 					print("Found file: " + file_name)
 					if (file_name.ends_with(".tres")):
-						var crd = ResourceLoader.load(g + "/" + file_name)
-						if (crd is CardStats):
-							cards.append(crd)
-							Menu.add_item(crd.GetCardName())
+						var dt = ResourceLoader.load(g + "/" + file_name)
+						if (dt is HullData):
+							data.append(dt)
+							Menu.add_item(file_name)
 				
 				file_name = dir.get_next()
-	SetCard(cards[currentCard])
-	cardDesc.ConfigureCard(cards[currentCard])
+				
+	SetShip(data[currentShip])
 
 
 func _on_popup_menu_index_pressed(index: int) -> void:
-	currentCard = index
-	SetCard(cards[index])
-	cardDesc.ConfigureCard(cards[index])
-
-func _on_panel_container_3_card_updated() -> void:
-	SetCard(cards[currentCard])
+	currentShip = index
+	SetShip(data[currentShip])
 
 ##Make sure to save and add back the UID, since the file is saved outside the project it will never get a UID
-func ResaveCard() -> void:
-	var card = cards[currentCard]
-	var originalUID = CardHelper.get_uid_from_tres(card.resource_path)
+func ResaveData(d : HullData = null) -> void:
+	if (!d):
+		d = data[currentShip]
+	var originalUID = CardHelper.get_uid_from_tres(d.resource_path)
 	
-	ResourceSaver.save(card, card.resource_path)
-	CardHelper.write_uid_to_tres(card.resource_path, originalUID)
+	ResourceSaver.save(d, d.resource_path)
+	CardHelper.write_uid_to_tres(d.resource_path, originalUID)
 	
-	print("Card Saved At {0}".format([cards[currentCard].resource_path]))
+	print("Data Saved At {0}".format([data[currentShip].resource_path]))
 
 
-func _on_new_pressed() -> void:
-	var diag = FileDialog.new()
-	diag.use_native_dialog = true
-	diag.access = FileDialog.ACCESS_FILESYSTEM
-	diag.file_mode = FileDialog.FILE_MODE_SAVE_FILE
-	diag.filters.append("*.tres")
-	diag.current_dir = startingDir + "/Resources/Cards/"
-	add_child(diag)
-	diag.popup_centered()
+func _on_palette_row_value_changed(value: float) -> void:
+	currentRow = roundi(value + 1)
+	SetShip(data[currentShip])
 
-	var f : String = await diag.file_selected
-	if (f.is_empty()):
-		return
-	if (f.get_extension().is_empty()):
-		f += ".tres"
-	else :if (f.get_extension() != "tres"):
-		return
 
-	var newCard = CardStats.new()
-	var cardName = f.get_file().replace(".tres", "")
-	newCard.CardName = cardName
+func _on_reset_pressed() -> void:
+	var palette = ResourceLoader.load(data[currentShip].hull_Pallete)
+	var actualPath = palette.resource_path.replace("res:/", Main.dirs.ModDir)
 	
-	if (FileAccess.file_exists(f)):
-		var existingIndex = cards.find(ResourceLoader.load(f))
-		cards[existingIndex] = newCard
-		currentCard = existingIndex
-		SetCard(newCard)
-	else:
-		cards.append(newCard)
-		currentCard = cards.size() - 1
-		SetCard(newCard)
+	var originalColors = GetColorsFromPalette(palette)
 	
-	ResourceSaver.save(newCard, f)
+	palette = ImageTexture.create_from_image(Image.load_from_file(actualPath))
+	var im : Image = palette.get_image()
+	for g in originalColors.size():
+		var col = originalColors[g]
+		im.set_pixel(g, currentRow, col)
+	im.save_png(actualPath)
+	SetShip(data[currentShip])
+
+
+func _on_add_pressed() -> void:
+	var palette = ResourceLoader.load(data[currentShip].hull_Pallete)
+	var actualPath = palette.resource_path.replace("res:/", Main.dirs.ModDir)
+	palette = ImageTexture.create_from_image(Image.load_from_file(actualPath))
 	
+	var originalColors = GetColorsFromPalette(palette, 0)
+	
+	var newRowNumber = palette.get_height()
+	
+	var im : Image = palette.get_image().duplicate(true)
+	im.resize(palette.get_width(), newRowNumber + 1)
+	
+	#put back olddata
+	for rowIndex in newRowNumber:
+		var rowCols = GetColorsFromPalette(palette, rowIndex)
+		for colorIndex in rowCols.size():
+			var col = rowCols[colorIndex]
+			im.set_pixel(colorIndex, rowIndex, col)
+	
+	#fill new line
+	for g in originalColors.size():
+		var col = originalColors[g]
+		im.set_pixel(g, newRowNumber, col)
+		
+	im.save_png(actualPath)
+	SetShip(data[currentShip])

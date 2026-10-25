@@ -287,30 +287,6 @@ func MovedDownInArray(moved, arr : Array) -> void:
 func ModulePropertyChanged() -> void:
 	PropertyChanged.emit()
 
-#-------------------------------------------------------------------
-func AddModule() -> CardModule:
-	if (modAmm == MaxAmm):
-		print("Cant add more modules in this section")
-		return
-		
-	var newModule = await SelectModule()
-	
-	ConfigureModule(newModule)
-	return newModule
-
-#-------------------------------------------------------------------
-func AddPassive() -> Card_Passive:
-	if (modAmm == MaxAmm):
-		print("Cant add more modules in this section")
-		return
-		
-	var newP = await SelectPassive()
-	
-	var newModule = await SelectModule(false)
-	newP.Module = newModule
-	
-	ConfigurePassive(newP)
-	return newP
 
 #-------------------------------------------------------------------
 func AddDamageInfo() -> DamageInfo:
@@ -323,45 +299,6 @@ func AddDamageInfo() -> DamageInfo:
 	
 	return newInfo
 
-#-------------------------------------------------------------------
-func SelectPassive() -> Card_Passive:
-	var passiveList = CardHelper.GetPassiveList()
-	
-	var opt : OptionButton = OptionButton.new()
-	for g in passiveList:
-		opt.add_item(g)
-	
-	add_child(opt)
-	opt.show_popup()
-	var selected = await opt.item_selected
-	opt.queue_free()
-	
-	var selectedName = passiveList.keys()[selected]
-	
-	return passiveList[selectedName].new()
-
-#-------------------------------------------------------------------
-func SelectModule(allowPassive : bool = true) -> CardModule:
-	var moduleList = CardHelper.GetModuleList(allowPassive)
-	
-	var opt : OptionButton = OptionButton.new()
-	opt.allow_reselect = true
-	opt.search_bar_enabled = true
-	for g in moduleList:
-		opt.add_item(g)
-	
-	add_child(opt)
-	opt.show_popup()
-	var selected = await opt.item_selected
-	opt.queue_free()
-	
-	var selectedName = moduleList.keys()[selected]
-	
-	var script : GDScript = moduleList[selectedName]
-	var moduleInstance = moduleList[selectedName].new()
-	var uid = ResourceUID.path_to_uid(script.resource_path)
-	moduleInstance.set_meta("_custom_type_script", uid)
-	return moduleInstance
 
 #-------------------------------------------------------------------
 func ModuleMovedUp(movedModule : CardModule, moduleDesc : CardModuleDescriptor) -> void:
@@ -439,13 +376,7 @@ func ArrayPropertyChanged(index : int, newValue : Variant, arr : Array) -> void:
 
 #-------------------------------------------------------------------
 func _on_add_pressed() -> void:
-	if (SectionT == SectionType.MODULE):
-		var newMod = await AddModule()
-		Added.emit(newMod)
-	else: if (SectionT == SectionType.PASSIVE):
-		var newPassive = await AddPassive()
-		Added.emit(newPassive)
-	else: if (SectionT == SectionType.DAMAGE_INFO):
+	if (SectionT == SectionType.DAMAGE_INFO):
 		var newInfo = AddDamageInfo()
 		Added.emit(newInfo)
 	else: if (SectionT == SectionType.DAMAGE_INFO):

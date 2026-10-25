@@ -1,0 +1,15 @@
+[gd_scene format=3 uid="uid://btq2mxucnuf83"]
+
+[ext_resource type="PackedScene" uid="uid://cg2ofk6jjjdtp" path="res://Scenes/Properties/CardModuleProperty.tscn" id="1_c2qs2"]
+[ext_resource type="Script" uid="uid://txvntum4bxyy" path="res://Scenes/Properties/card_module_color_property.gd" id="2_ev0vu"]
+
+[node name="PanelContainer" unique_id=2071651446 node_paths=PackedStringArray("colorPicker") instance=ExtResource("1_c2qs2")]
+custom_maximum_size = Vector2(-1, -1)
+script = ExtResource("2_ev0vu")
+colorPicker = NodePath("VBoxContainer/ColorPickerButton")
+
+[node name="ColorPickerButton" type="ColorPickerButton" parent="VBoxContainer" parent_id_path=PackedInt32Array(1560259221) index="2" unique_id=1200787724]
+custom_minimum_size = Vector2(60, 0)
+layout_mode = 2
+
+[connection signal="color_changed" from="VBoxContainer/ColorPickerButton" to="." method="_on_color_picker_button_color_changed"]
