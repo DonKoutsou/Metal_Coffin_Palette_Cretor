@@ -16,24 +16,13 @@ var _palette_image: Image
 var _palette_texture: ImageTexture
 
 
-func analyze_and_build(texture : Texture2D) -> void:
-	if texture == null:
-		push_error("PaletteSwapController: Sprite2D has no texture.")
-		return
-	
-	var source_image = texture.get_image()
-
-	var result := PaletteAnalyzer.analyze(source_image, hue_threshold, max_families)
+func analyze_and_build(palette : PackedColorArray) -> void:
+	var result := PaletteAnalyzer.analyze(palette, hue_threshold, max_families)
 	_source_colors = result["colors"]
 	_color_keys = result["color_keys"]
 	_family_ids = result["family_ids"]
 	_base_family_hues = result["family_hues"]
 	_current_family_hues = _base_family_hues.duplicate()
-
-	if _source_colors.size() > max_unique_colors:
-		push_error("PaletteSwapController: Sprite has %d unique opaque colors (limit %d). Reduce colors in the source image or increase max_unique_colors carefully." % [_source_colors.size(), max_unique_colors])
-		return
-
 
 func get_family_count() -> int:
 	return _base_family_hues.size()

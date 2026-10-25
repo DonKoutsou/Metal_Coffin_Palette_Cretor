@@ -40,6 +40,7 @@ alignment = 1
 
 [node name="Label" type="Label" parent="PanelContainer/MarginContainer/VBoxContainer" unique_id=566936015]
 layout_mode = 2
+theme_override_colors/font_color = Color(1, 1, 1, 1)
 text = "Project Path"
 
 [node name="ProjectPicker" parent="PanelContainer/MarginContainer/VBoxContainer" unique_id=316868228 instance=ExtResource("2_uu6xs")]
@@ -50,6 +51,7 @@ allowExternalLinks = true
 
 [node name="Label2" type="Label" parent="PanelContainer/MarginContainer/VBoxContainer" unique_id=229834958]
 layout_mode = 2
+theme_override_colors/font_color = Color(1, 1, 1, 1)
 text = "Base Pack"
 
 [node name="BasePackPicker" parent="PanelContainer/MarginContainer/VBoxContainer" unique_id=1898830005 instance=ExtResource("2_uu6xs")]

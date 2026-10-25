@@ -1,7 +1,6 @@
 [gd_scene format=3 uid="uid://dh3bwvtubkl7h"]
 
-[ext_resource type="Script" uid="uid://cb3ywj2ccr8al" path="res://Scenes/card_builder.gd" id="1_wcloi"]
-[ext_resource type="PackedScene" uid="uid://irv52igireqs" path="res://Scenes/Sections/CardModuleFoldableSection.tscn" id="2_dtm6g"]
+[ext_resource type="Script" uid="uid://cb3ywj2ccr8al" path="res://Scenes/PaletteCreator.gd" id="1_wcloi"]
 [ext_resource type="Shader" uid="uid://dy6uaiuajknfy" path="res://MetalEngineBase/Ship/ShipColorPallete.gdshader" id="3_4c8a5"]
 [ext_resource type="PackedScene" uid="uid://btq2mxucnuf83" path="res://Scenes/Properties/CardModule_Color_Property.tscn" id="3_wcloi"]
 [ext_resource type="Texture2D" uid="uid://sdmeemku7vj3" path="res://Scenes/FoldableContainer/Plus.png" id="5_wcloi"]
@@ -22,41 +21,36 @@ grow_horizontal = 2
 grow_vertical = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_48hsl")
 script = ExtResource("1_wcloi")
-Menu = NodePath("VBoxContainer/HBoxContainer2/MenuBar/Open Ship")
-ship = NodePath("VBoxContainer/HBoxContainer/Control/VBoxContainer/TextureRect")
-colorParent = NodePath("VBoxContainer/HBoxContainer/PanelContainer/InputScroll/VBoxContainer")
-sect = ExtResource("2_dtm6g")
+Menu = NodePath("HBoxContainer2/VBoxContainer/MenuBar/Open Ship")
+ship = NodePath("HBoxContainer2/VBoxContainer/Control/VBoxContainer/TextureRect")
+colorParent = NodePath("HBoxContainer2/HBoxContainer/PanelContainer/InputScroll/VBoxContainer")
 colorProp = ExtResource("3_wcloi")
-row = NodePath("VBoxContainer/HBoxContainer/Control/VBoxContainer/PanelContainer/HBoxContainer/PaletteRow")
+row = NodePath("HBoxContainer2/VBoxContainer/Control/VBoxContainer/PanelContainer/HBoxContainer/PaletteRow")
 
-[node name="VBoxContainer" type="VBoxContainer" parent="." unique_id=1558389786]
+[node name="HBoxContainer2" type="HBoxContainer" parent="." unique_id=1214783862]
 layout_mode = 2
 
-[node name="HBoxContainer2" type="HBoxContainer" parent="VBoxContainer" unique_id=1214783862]
-layout_mode = 2
-
-[node name="New" type="Button" parent="VBoxContainer/HBoxContainer2" unique_id=1412657975]
-visible = false
-layout_mode = 2
-text = "New Card"
-
-[node name="MenuBar" type="MenuBar" parent="VBoxContainer/HBoxContainer2" unique_id=841222932]
-layout_mode = 2
-
-[node name="Open Ship" type="PopupMenu" parent="VBoxContainer/HBoxContainer2/MenuBar" unique_id=235790351]
-mode = 4
-search_bar_enabled = true
-
-[node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer" unique_id=1825110963]
-layout_mode = 2
-size_flags_vertical = 3
-
-[node name="Control" type="Control" parent="VBoxContainer/HBoxContainer" unique_id=1529483612]
-custom_minimum_size = Vector2(300, 0)
+[node name="VBoxContainer" type="VBoxContainer" parent="HBoxContainer2" unique_id=1558389786]
 layout_mode = 2
 size_flags_horizontal = 3
 
-[node name="VBoxContainer" type="VBoxContainer" parent="VBoxContainer/HBoxContainer/Control" unique_id=1910128734]
+[node name="MenuBar" type="MenuBar" parent="HBoxContainer2/VBoxContainer" unique_id=841222932]
+layout_mode = 2
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+
+[node name="Open Ship" type="PopupMenu" parent="HBoxContainer2/VBoxContainer/MenuBar" unique_id=235790351]
+oversampling_override = 1.0
+mode = 4
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+search_bar_enabled = true
+
+[node name="Control" type="Control" parent="HBoxContainer2/VBoxContainer" unique_id=1529483612]
+custom_minimum_size = Vector2(300, 0)
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="VBoxContainer" type="VBoxContainer" parent="HBoxContainer2/VBoxContainer/Control" unique_id=1910128734]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -64,56 +58,68 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="TextureRect" type="TextureRect" parent="VBoxContainer/HBoxContainer/Control/VBoxContainer" unique_id=1359242488]
+[node name="TextureRect" type="TextureRect" parent="HBoxContainer2/VBoxContainer/Control/VBoxContainer" unique_id=1359242488]
 texture_filter = 1
 material = SubResource("ShaderMaterial_1vivr")
 layout_mode = 2
 size_flags_vertical = 3
-stretch_mode = 5
+offset_transform_enabled = true
+stretch_mode = 3
 
-[node name="PanelContainer" type="PanelContainer" parent="VBoxContainer/HBoxContainer/Control/VBoxContainer" unique_id=392658631]
+[node name="PanelContainer" type="PanelContainer" parent="HBoxContainer2/VBoxContainer/Control/VBoxContainer" unique_id=392658631]
 layout_mode = 2
 
-[node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer/HBoxContainer/Control/VBoxContainer/PanelContainer" unique_id=1281898774]
+[node name="HBoxContainer" type="HBoxContainer" parent="HBoxContainer2/VBoxContainer/Control/VBoxContainer/PanelContainer" unique_id=1281898774]
 layout_mode = 2
 
-[node name="Label" type="Label" parent="VBoxContainer/HBoxContainer/Control/VBoxContainer/PanelContainer/HBoxContainer" unique_id=351136420]
+[node name="Label" type="Label" parent="HBoxContainer2/VBoxContainer/Control/VBoxContainer/PanelContainer/HBoxContainer" unique_id=351136420]
 layout_mode = 2
 size_flags_horizontal = 3
 text = "Palette Row"
 
-[node name="add" type="Button" parent="VBoxContainer/HBoxContainer/Control/VBoxContainer/PanelContainer/HBoxContainer" unique_id=2145910396]
+[node name="add" type="Button" parent="HBoxContainer2/VBoxContainer/Control/VBoxContainer/PanelContainer/HBoxContainer" unique_id=2145910396]
 layout_mode = 2
 icon = ExtResource("5_wcloi")
 
-[node name="PaletteRow" type="SpinBox" parent="VBoxContainer/HBoxContainer/Control/VBoxContainer/PanelContainer/HBoxContainer" unique_id=162787624]
+[node name="PaletteRow" type="SpinBox" parent="HBoxContainer2/VBoxContainer/Control/VBoxContainer/PanelContainer/HBoxContainer" unique_id=162787624]
 custom_minimum_size = Vector2(60, 0)
 layout_mode = 2
 
-[node name="Reset" type="Button" parent="VBoxContainer/HBoxContainer/Control/VBoxContainer/PanelContainer/HBoxContainer" unique_id=1584904289]
+[node name="Reset" type="Button" parent="HBoxContainer2/VBoxContainer/Control/VBoxContainer/PanelContainer/HBoxContainer" unique_id=1584904289]
 layout_mode = 2
 text = "Reset"
 
-[node name="PanelContainer" type="PanelContainer" parent="VBoxContainer/HBoxContainer" unique_id=782634793]
+[node name="New" type="Button" parent="HBoxContainer2" unique_id=1412657975]
+visible = false
+layout_mode = 2
+text = "New Card"
+
+[node name="HBoxContainer" type="HBoxContainer" parent="HBoxContainer2" unique_id=1825110963]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 
-[node name="InputScroll" type="ScrollContainer" parent="VBoxContainer/HBoxContainer/PanelContainer" unique_id=1842411271]
+[node name="PanelContainer" type="PanelContainer" parent="HBoxContainer2/HBoxContainer" unique_id=782634793]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="InputScroll" type="ScrollContainer" parent="HBoxContainer2/HBoxContainer/PanelContainer" unique_id=1842411271]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 follow_focus = true
 draw_focus_border = true
 
-[node name="VBoxContainer" type="GridContainer" parent="VBoxContainer/HBoxContainer/PanelContainer/InputScroll" unique_id=1647170857]
+[node name="VBoxContainer" type="GridContainer" parent="HBoxContainer2/HBoxContainer/PanelContainer/InputScroll" unique_id=1647170857]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 columns = 2
 
-[connection signal="pressed" from="VBoxContainer/HBoxContainer2/New" to="." method="_on_new_pressed"]
-[connection signal="index_pressed" from="VBoxContainer/HBoxContainer2/MenuBar/Open Ship" to="." method="_on_popup_menu_index_pressed"]
-[connection signal="pressed" from="VBoxContainer/HBoxContainer/Control/VBoxContainer/PanelContainer/HBoxContainer/add" to="." method="_on_add_pressed"]
-[connection signal="value_changed" from="VBoxContainer/HBoxContainer/Control/VBoxContainer/PanelContainer/HBoxContainer/PaletteRow" to="." method="_on_palette_row_value_changed"]
-[connection signal="pressed" from="VBoxContainer/HBoxContainer/Control/VBoxContainer/PanelContainer/HBoxContainer/Reset" to="." method="_on_reset_pressed"]
+[connection signal="index_pressed" from="HBoxContainer2/VBoxContainer/MenuBar/Open Ship" to="." method="_on_popup_menu_index_pressed"]
+[connection signal="gui_input" from="HBoxContainer2/VBoxContainer/Control/VBoxContainer/TextureRect" to="." method="_on_texture_rect_gui_input"]
+[connection signal="pressed" from="HBoxContainer2/VBoxContainer/Control/VBoxContainer/PanelContainer/HBoxContainer/add" to="." method="_on_add_pressed"]
+[connection signal="value_changed" from="HBoxContainer2/VBoxContainer/Control/VBoxContainer/PanelContainer/HBoxContainer/PaletteRow" to="." method="_on_palette_row_value_changed"]
+[connection signal="pressed" from="HBoxContainer2/VBoxContainer/Control/VBoxContainer/PanelContainer/HBoxContainer/Reset" to="." method="_on_reset_pressed"]
+[connection signal="pressed" from="HBoxContainer2/New" to="." method="_on_new_pressed"]

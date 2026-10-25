@@ -5,7 +5,6 @@ class_name PaletterCreator
 @export var Menu : PopupMenu
 @export var ship : TextureRect
 @export var colorParent : Control
-@export var sect : PackedScene
 @export var colorProp : PackedScene
 @export var row : SpinBox
 var startingDir : String
@@ -186,3 +185,12 @@ func _on_add_pressed() -> void:
 		
 	im.save_png(actualPath)
 	SetShip(data[currentShip])
+
+
+func _on_texture_rect_gui_input(event: InputEvent) -> void:
+	if (event.is_action_pressed("ZoomIn")):
+		var newScale = clamp(ship.offset_transform_scale.x + 0.1 , 0.1, 6)
+		ship.offset_transform_scale = Vector2(newScale,newScale)
+	if (event.is_action_pressed("ZoomOut")):
+		var newScale = clamp(ship.offset_transform_scale.x - 0.1 , 0.1, 6)
+		ship.offset_transform_scale = Vector2(newScale,newScale)

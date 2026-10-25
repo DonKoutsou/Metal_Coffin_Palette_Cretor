@@ -23,21 +23,20 @@ static func quantize_color(color: Color, step: int = 16) -> Color:
 		1.0
 	)
 	
-static func analyze(image: Image, hue_threshold: float = 0.075, max_families: int = 6) -> Dictionary:
+static func analyze(palette: PackedColorArray, hue_threshold: float = 0.075, max_families: int = 6) -> Dictionary:
 	var colors: Array[Color] = []
 	var color_keys: Array[int] = []
 	var seen: Dictionary = {}
 
-	for y in range(image.get_height()):
-		for x in range(image.get_width()):
-			var c := image.get_pixel(x, y)
-			if c.a <= 0.0:
-				continue
-			var key: int = c.to_rgba32()
-			if not seen.has(key):
-				seen[key] = true
-				colors.append(c)
-				color_keys.append(key)
+	for y in range(palette.size()):
+		var c = palette[y]
+		if c.a <= 0.0:
+			continue
+		var key: int = c.to_rgba32()
+		if not seen.has(key):
+			seen[key] = true
+			colors.append(c)
+			color_keys.append(key)
 
 	# Create hue clusters. Low-saturation colors remain neutral (-1).
 	var clusters: Array[Dictionary] = []
