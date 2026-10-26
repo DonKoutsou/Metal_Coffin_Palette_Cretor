@@ -59,18 +59,6 @@ content_margin_bottom = 6.0
 texture = ExtResource("3_7ncg0")
 region_rect = Rect2(0, 0, 23, 23)
 
-[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_6m8wx"]
-content_margin_left = 8.0
-content_margin_top = 6.0
-content_margin_right = 8.0
-content_margin_bottom = 6.0
-texture = ExtResource("2_6vv4s")
-texture_margin_left = 4.0
-texture_margin_top = 4.0
-texture_margin_right = 4.0
-texture_margin_bottom = 4.0
-region_rect = Rect2(0, 0, 23, 23)
-
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_84iia"]
 content_margin_left = 8.0
 content_margin_top = 6.0
@@ -83,7 +71,7 @@ texture_margin_right = 4.0
 texture_margin_bottom = 4.0
 region_rect = Rect2(0, 0, 23, 23)
 
-[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_txum0"]
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_6m8wx"]
 content_margin_left = 8.0
 content_margin_top = 6.0
 content_margin_right = 8.0
@@ -504,9 +492,9 @@ Button/font_sizes/font_size = 11
 Button/fonts/font = ExtResource("1_vei3r")
 Button/styles/disabled = SubResource("StyleBoxTexture_6akc0")
 Button/styles/focus = SubResource("StyleBoxTexture_diei6")
-Button/styles/hover = SubResource("StyleBoxTexture_6m8wx")
+Button/styles/hover = SubResource("StyleBoxTexture_84iia")
 Button/styles/normal = SubResource("StyleBoxTexture_84iia")
-Button/styles/pressed = SubResource("StyleBoxTexture_txum0")
+Button/styles/pressed = SubResource("StyleBoxTexture_6m8wx")
 CheckBox/colors/font_color = Color(0, 0, 0, 1)
 CheckBox/colors/font_disabled_color = Color(0.501961, 0.501961, 0.501961, 1)
 CheckBox/colors/font_focus_color = Color(0, 0, 0, 1)
@@ -607,9 +595,9 @@ LineEdit/icons/clear = null
 LineEdit/styles/focus = SubResource("StyleBoxTexture_15vrp")
 LineEdit/styles/normal = SubResource("StyleBoxTexture_2j3fx")
 LineEdit/styles/read_only = SubResource("StyleBoxTexture_wvc0o")
-MenuBar/styles/hover = SubResource("StyleBoxTexture_6m8wx")
+MenuBar/styles/hover = SubResource("StyleBoxTexture_84iia")
 MenuBar/styles/normal = SubResource("StyleBoxTexture_84iia")
-MenuBar/styles/pressed = SubResource("StyleBoxTexture_txum0")
+MenuBar/styles/pressed = SubResource("StyleBoxTexture_6m8wx")
 OptionButton/colors/font_color = Color(0, 0, 0, 1)
 OptionButton/colors/font_disabled_color = Color(0, 0, 0, 1)
 OptionButton/colors/font_focus_color = Color(0, 0, 0, 1)

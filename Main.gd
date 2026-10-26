@@ -10,7 +10,7 @@ var execPath : String
 
 static var dirs : SaveDirs
 
-# Called when the node enters the scene tree for the first time.
+#--------------------------------------------------------
 func _ready() -> void:
 	execPath = OS.get_executable_path()
 	execPath = execPath.replace(execPath.get_file(), "")
@@ -23,6 +23,7 @@ func _ready() -> void:
 	projectPicker.SetFile(dirs.ModDir)
 	basePackPicker.SetFile(dirs.BaseDataDir)
 
+#--------------------------------------------------------
 func _on_launch_pressed() -> void:
 	if (dirs.ModDir.is_empty()):
 		print("No dir selected")

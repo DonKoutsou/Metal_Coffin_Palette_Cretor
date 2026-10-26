@@ -2,6 +2,7 @@
 
 [ext_resource type="Script" uid="uid://cb3ywj2ccr8al" path="res://Scenes/PaletteCreator.gd" id="1_wcloi"]
 [ext_resource type="Shader" uid="uid://dy6uaiuajknfy" path="res://MetalEngineBase/Ship/ShipColorPallete.gdshader" id="3_4c8a5"]
+[ext_resource type="Texture2D" uid="uid://c8dlqks5twbr5" path="res://Godot-Window-98-Theme/textures/save.png" id="3_dtm6g"]
 [ext_resource type="PackedScene" uid="uid://btq2mxucnuf83" path="res://Scenes/Properties/CardModule_Color_Property.tscn" id="3_wcloi"]
 [ext_resource type="Texture2D" uid="uid://sdmeemku7vj3" path="res://Scenes/FoldableContainer/Plus.png" id="5_wcloi"]
 
@@ -21,7 +22,7 @@ grow_horizontal = 2
 grow_vertical = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_48hsl")
 script = ExtResource("1_wcloi")
-Menu = NodePath("HBoxContainer2/VBoxContainer/MenuBar/Open Ship")
+Menu = NodePath("HBoxContainer2/VBoxContainer/HBoxContainer/MenuBar/Open Ship")
 ship = NodePath("HBoxContainer2/VBoxContainer/Control/VBoxContainer/TextureRect")
 colorParent = NodePath("HBoxContainer2/HBoxContainer/PanelContainer/InputScroll/VBoxContainer")
 colorProp = ExtResource("3_wcloi")
@@ -34,15 +35,31 @@ layout_mode = 2
 layout_mode = 2
 size_flags_horizontal = 3
 
-[node name="MenuBar" type="MenuBar" parent="HBoxContainer2/VBoxContainer" unique_id=841222932]
+[node name="HBoxContainer" type="HBoxContainer" parent="HBoxContainer2/VBoxContainer" unique_id=1669788354]
+layout_mode = 2
+
+[node name="MenuBar" type="MenuBar" parent="HBoxContainer2/VBoxContainer/HBoxContainer" unique_id=841222932]
 layout_mode = 2
 theme_override_colors/font_color = Color(0, 0, 0, 1)
 
-[node name="Open Ship" type="PopupMenu" parent="HBoxContainer2/VBoxContainer/MenuBar" unique_id=235790351]
+[node name="Open Ship" type="PopupMenu" parent="HBoxContainer2/VBoxContainer/HBoxContainer/MenuBar" unique_id=235790351]
 oversampling_override = 1.0
 mode = 4
 theme_override_colors/font_color = Color(0, 0, 0, 1)
 search_bar_enabled = true
+
+[node name="save" type="Button" parent="HBoxContainer2/VBoxContainer/HBoxContainer" unique_id=759078910]
+custom_minimum_size = Vector2(30, 0)
+layout_mode = 2
+theme_override_colors/icon_normal_color = Color(1, 1, 1, 1)
+theme_override_colors/icon_focus_color = Color(1, 1, 1, 1)
+theme_override_colors/icon_pressed_color = Color(1, 1, 1, 1)
+theme_override_colors/icon_hover_color = Color(1, 1, 1, 1)
+theme_override_colors/icon_hover_pressed_color = Color(1, 1, 1, 1)
+theme_override_colors/icon_disabled_color = Color(1, 1, 1, 1)
+icon = ExtResource("3_dtm6g")
+icon_alignment = 1
+expand_icon = true
 
 [node name="Control" type="Control" parent="HBoxContainer2/VBoxContainer" unique_id=1529483612]
 custom_minimum_size = Vector2(300, 0)
@@ -117,7 +134,8 @@ size_flags_horizontal = 3
 size_flags_vertical = 3
 columns = 2
 
-[connection signal="index_pressed" from="HBoxContainer2/VBoxContainer/MenuBar/Open Ship" to="." method="_on_popup_menu_index_pressed"]
+[connection signal="index_pressed" from="HBoxContainer2/VBoxContainer/HBoxContainer/MenuBar/Open Ship" to="." method="_on_popup_menu_index_pressed"]
+[connection signal="pressed" from="HBoxContainer2/VBoxContainer/HBoxContainer/save" to="." method="_on_save_pressed"]
 [connection signal="gui_input" from="HBoxContainer2/VBoxContainer/Control/VBoxContainer/TextureRect" to="." method="_on_texture_rect_gui_input"]
 [connection signal="pressed" from="HBoxContainer2/VBoxContainer/Control/VBoxContainer/PanelContainer/HBoxContainer/add" to="." method="_on_add_pressed"]
 [connection signal="value_changed" from="HBoxContainer2/VBoxContainer/Control/VBoxContainer/PanelContainer/HBoxContainer/PaletteRow" to="." method="_on_palette_row_value_changed"]
